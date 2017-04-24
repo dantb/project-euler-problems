@@ -41,7 +41,28 @@ namespace ProjectEulerProblems
 
             public double GetSolution()
             {
-                return 0;
+                double answer = 0;
+                HashSet<int> multiples = new HashSet<int>();
+                int x = 3, y = 5;
+
+                for (int i = 1; i <= (1000 - (1000 % x))/x; i++)
+                {
+                    multiples.Add(i * x);
+                }
+
+                for (int i = 1; i <= (1000 - (1000 % y)) / y; i++)
+                {
+                    multiples.Add(i * y);
+                }
+
+                if (multiples.Contains(1000))
+                {
+                    //strictly less than 1000
+                    multiples.Remove(1000);
+                }
+
+                answer = multiples.Sum();
+                return answer;
             }
         }
     }
