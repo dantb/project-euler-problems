@@ -1,2 +1,2 @@
 # project-euler-problems
-Solutions to mathematical problems from ProjectEuler.net
+Solutions in C# to mathematical problems from [Project Euler ](https://projecteuler.net/problems)
