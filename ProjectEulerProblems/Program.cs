@@ -16,7 +16,7 @@ namespace ProjectEulerProblems
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Problems());
+            Application.Run(new ProblemsView());
         }
     }
 }

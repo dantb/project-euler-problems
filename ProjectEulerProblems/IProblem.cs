@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ProjectEulerProblems
+﻿namespace ProjectEulerProblems
 {
     public interface IProblem
     {
-        int ProblemId { get; }
-        string Title { get; }
-        string Description { get; }
+        int ProblemId
+        {
+            get;
+        }
         double GetSolution();
     }
 }

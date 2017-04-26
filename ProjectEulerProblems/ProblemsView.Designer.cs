@@ -1,6 +1,6 @@
 ﻿namespace ProjectEulerProblems
 {
-    partial class Problems
+    partial class ProblemsView
     {
         /// <summary>
         /// Required designer variable.
