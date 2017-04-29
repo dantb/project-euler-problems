@@ -1,5 +1,4 @@
 ﻿using HtmlAgilityPack;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -35,17 +34,15 @@ namespace ProjectEulerProblems
             }
         }
 
-        public string ExtractProblemDetailsFromTableRow(HtmlNode tableRow)
+        public string ExtractProblemDetailsFromTableRow(string url)
         {
             try
             {
-                string problemHref = GetProblemHrefForUrl(tableRow);
-
                 string websiteContents = "";
                 using (WebClient client = new WebClient())
                 {
                     client.Encoding = System.Text.Encoding.ASCII;
-                    websiteContents = client.DownloadString(ProjectEulerBaseUrl + "/" + problemHref);
+                    websiteContents = client.DownloadString(url);
                 }
 
                 return ExtractProblemDetailsFromHtml(websiteContents);
@@ -54,6 +51,12 @@ namespace ProjectEulerProblems
             {
                 return string.Empty;
             }
+        }
+
+        public string GetProblemUrl(HtmlNode tableRow)
+        {
+            string problemHref = GetProblemHrefForUrl(tableRow);
+            return ProjectEulerBaseUrl + "/" + problemHref;
         }
 
         private HtmlNode ExtractTableNodeFromHtml(string websiteContents)

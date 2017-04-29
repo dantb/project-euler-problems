@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 
@@ -12,6 +11,7 @@ namespace ProjectEulerProblems
 
         private WebsiteManager _websiteManager = new WebsiteManager();
         private HashSet<int> _problemIdsFromWebsite = new HashSet<int>();
+        private Dictionary<int, string> _problemUrlsKeyedByListViewRow = new Dictionary<int, string>();
 
         public ProblemsView()
         {
@@ -51,9 +51,9 @@ namespace ProjectEulerProblems
                     {
                         ListViewItem lvi = new ListViewItem(data.Id);
                         lvi.SubItems.Add(data.Description);
-                        lvi.SubItems.Add(data.Details);
                         ProblemsListView.Items.Add(lvi);
-                    }
+                        _problemUrlsKeyedByListViewRow.Add(ProblemsListView.Items.Count - 1, data.Details);
+                    }                    
                 }
             }
         }
@@ -65,13 +65,28 @@ namespace ProjectEulerProblems
                 List<HtmlNode> cellContents = tableRow.SelectNodes("th|td").ToList();
                 string id = cellContents[0].InnerText;
                 string description = cellContents[1].InnerText;
-                string problemDetails = _websiteManager.ExtractProblemDetailsFromTableRow(tableRow);
+                string problemUrl = _websiteManager.GetProblemUrl(tableRow);
 
                 _problemIdsFromWebsite.Add(int.Parse(id));
 
-                return new ProblemData(id, description, problemDetails);
+                return new ProblemData(id, description, problemUrl);
             }
             return null;
+        }
+
+        private void ProblemsListView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var hit = ProblemsListView.HitTest(new System.Drawing.Point(e.X, e.Y));
+            var item = hit.Item;
+            if (item != null)
+            {
+                string url = _problemUrlsKeyedByListViewRow[item.Index];
+                string problemDetails = _websiteManager.ExtractProblemDetailsFromTableRow(url);
+
+                Clipboard.SetData(DataFormats.Html, problemDetails);
+                ProblemRichTextBox.Text = problemDetails;
+                ProblemRichTextBox.Visible = true;
+            }
         }
     }
 }

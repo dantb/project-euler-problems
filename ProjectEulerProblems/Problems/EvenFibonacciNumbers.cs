@@ -12,8 +12,6 @@ namespace ProjectEulerProblems
 
         public double GetSolution()
         {
-            double answer = 0;
-            //intialise with 2
             HashSet<int> fibNumbers = new HashSet<int>();
             int fib1 = 1;
             int fib2 = 2;

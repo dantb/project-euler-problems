@@ -32,7 +32,7 @@
             this.ProblemIdCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ProblemDescriptionCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SolutionCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ContentsCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ProblemRichTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // ProblemsListView
@@ -40,16 +40,18 @@
             this.ProblemsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ProblemIdCol,
             this.ProblemDescriptionCol,
-            this.ContentsCol,
             this.SolutionCol});
             this.ProblemsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProblemsListView.FullRowSelect = true;
             this.ProblemsListView.GridLines = true;
             this.ProblemsListView.Location = new System.Drawing.Point(0, 0);
+            this.ProblemsListView.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.ProblemsListView.Name = "ProblemsListView";
-            this.ProblemsListView.Size = new System.Drawing.Size(565, 437);
+            this.ProblemsListView.Size = new System.Drawing.Size(1507, 1042);
             this.ProblemsListView.TabIndex = 0;
             this.ProblemsListView.UseCompatibleStateImageBehavior = false;
             this.ProblemsListView.View = System.Windows.Forms.View.Details;
+            this.ProblemsListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProblemsListView_MouseDoubleClick);
             // 
             // ProblemIdCol
             // 
@@ -67,18 +69,25 @@
             this.SolutionCol.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.SolutionCol.Width = 100;
             // 
-            // ContentsCol
+            // ProblemRichTextBox
             // 
-            this.ContentsCol.Text = "Outline of the problem";
-            this.ContentsCol.Width = 200;
+            this.ProblemRichTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ProblemRichTextBox.Location = new System.Drawing.Point(0, 620);
+            this.ProblemRichTextBox.Name = "ProblemRichTextBox";
+            this.ProblemRichTextBox.Size = new System.Drawing.Size(1507, 422);
+            this.ProblemRichTextBox.TabIndex = 1;
+            this.ProblemRichTextBox.Text = "";
+            this.ProblemRichTextBox.Visible = false;
             // 
             // ProblemsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(565, 437);
+            this.ClientSize = new System.Drawing.Size(1507, 1042);
+            this.Controls.Add(this.ProblemRichTextBox);
             this.Controls.Add(this.ProblemsListView);
+            this.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.Name = "ProblemsView";
             this.Text = "Problems from Project Euler";
             this.ResumeLayout(false);
@@ -91,7 +100,7 @@
         private System.Windows.Forms.ColumnHeader ProblemIdCol;
         private System.Windows.Forms.ColumnHeader ProblemDescriptionCol;
         private System.Windows.Forms.ColumnHeader SolutionCol;
-        private System.Windows.Forms.ColumnHeader ContentsCol;
+        private System.Windows.Forms.RichTextBox ProblemRichTextBox;
     }
 }
 
