@@ -66,10 +66,11 @@ namespace ProjectEulerProblems
                 string id = cellContents[0].InnerText;
                 string description = cellContents[1].InnerText;
                 string problemUrl = _websiteManager.GetProblemUrl(tableRow);
+                string problemDetails = _websiteManager.ExtractProblemDetailsFromTableRow(problemUrl);
 
                 _problemIdsFromWebsite.Add(int.Parse(id));
 
-                return new ProblemData(id, description, problemUrl);
+                return new ProblemData(id, description, problemDetails);
             }
             return null;
         }
@@ -80,13 +81,27 @@ namespace ProjectEulerProblems
             var item = hit.Item;
             if (item != null)
             {
-                string url = _problemUrlsKeyedByListViewRow[item.Index];
-                string problemDetails = _websiteManager.ExtractProblemDetailsFromTableRow(url);
-
-                Clipboard.SetData(DataFormats.Html, problemDetails);
-                ProblemRichTextBox.Text = problemDetails;
-                ProblemRichTextBox.Visible = true;
+                ShowProblemDetailsRtbFromIndex(item.Index);
             }
+        }
+
+        private void ProblemsListView_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (ProblemsListView.SelectedItems.Count == 1)
+                {
+                    int index = ProblemsListView.SelectedIndices[0];
+                    ShowProblemDetailsRtbFromIndex(index);
+                }
+            }
+        }
+
+        private void ShowProblemDetailsRtbFromIndex(int index)
+        { 
+            string problemDetails = _problemUrlsKeyedByListViewRow[index];
+            ProblemRichTextBox.Text = problemDetails;
+            ProblemRichTextBox.Visible = true;
         }
     }
 }

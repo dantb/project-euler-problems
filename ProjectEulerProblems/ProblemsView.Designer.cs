@@ -41,7 +41,7 @@
             this.ProblemIdCol,
             this.ProblemDescriptionCol,
             this.SolutionCol});
-            this.ProblemsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ProblemsListView.Dock = System.Windows.Forms.DockStyle.Top;
             this.ProblemsListView.FullRowSelect = true;
             this.ProblemsListView.GridLines = true;
             this.ProblemsListView.Location = new System.Drawing.Point(0, 0);
@@ -51,6 +51,7 @@
             this.ProblemsListView.TabIndex = 0;
             this.ProblemsListView.UseCompatibleStateImageBehavior = false;
             this.ProblemsListView.View = System.Windows.Forms.View.Details;
+            this.ProblemsListView.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ProblemsListView_KeyUp);
             this.ProblemsListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ProblemsListView_MouseDoubleClick);
             // 
             // ProblemIdCol
