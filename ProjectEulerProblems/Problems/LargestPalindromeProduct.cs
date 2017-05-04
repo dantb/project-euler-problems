@@ -12,7 +12,7 @@ namespace ProjectEulerProblems
 
         public double GetSolution()
         {
-            List<int> products = new List<int>();
+            HashSet<int> products = new HashSet<int>();
 
             for (int i = 100; i < 999; i++)
             {
@@ -28,8 +28,7 @@ namespace ProjectEulerProblems
                         //can't start in 0
                         continue;
                     }
-                    int product = i * j;
-                    products.Add(product);
+                    products.Add(i * j);
                 }
             }
 
