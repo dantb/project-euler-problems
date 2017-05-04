@@ -10,7 +10,8 @@ namespace ProjectEulerProblems
         {
             new MultiplesOfThreeAndFive(),
             new EvenFibonacciNumbers(),
-            new LargestPrimeFactor()
+            new LargestPrimeFactor(),
+            new LargestPalindromeProduct()
         };       
     }
 }
