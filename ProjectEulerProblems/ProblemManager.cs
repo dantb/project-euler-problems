@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace ProjectEulerProblems
 {
@@ -12,7 +10,8 @@ namespace ProjectEulerProblems
             new EvenFibonacciNumbers(),
             new LargestPrimeFactor(),
             new LargestPalindromeProduct(),
-            new SmallestMultiple()
-        };       
+            new SmallestMultiple(),
+            new SumSquareDifference()
+        };
     }
 }
