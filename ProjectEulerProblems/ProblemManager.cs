@@ -11,7 +11,8 @@ namespace ProjectEulerProblems
             new MultiplesOfThreeAndFive(),
             new EvenFibonacciNumbers(),
             new LargestPrimeFactor(),
-            new LargestPalindromeProduct()
+            new LargestPalindromeProduct(),
+            new SmallestMultiple()
         };       
     }
 }
