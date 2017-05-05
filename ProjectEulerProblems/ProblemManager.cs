@@ -12,7 +12,8 @@ namespace ProjectEulerProblems
             new LargestPalindromeProduct(),
             new SmallestMultiple(),
             new SumSquareDifference(),
-            new NthPrimeCalculator()
+            new NthPrimeCalculator(),
+            new LargestProductInSeries()
         };
     }
 }
