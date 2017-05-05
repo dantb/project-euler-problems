@@ -9,16 +9,13 @@ namespace ProjectEulerProblems
         public double GetSolution()
         {
             double answer = 0;
-            for (int i = 1; i <= 50; i++)
+            for (int i = 1; i <= 100; i++)
             {
-                for (int j = 100; j >= 50; j--)
+                for (int j = i + 1; j <= 100; j++)
                 {
                     answer += 2 * i * j;
                 }
             }
-
-            //get rid of extra 50 term we added
-            answer -= (2 * 50 * 50);
 
             return answer;
         }
