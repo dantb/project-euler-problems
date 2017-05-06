@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProblemData.cs" />
+    <Compile Include="Problems\LargestProductInGrid.cs" />
     <Compile Include="Problems\LargestProductInSeries.cs" />
     <Compile Include="Problems\NthPrimeCalculator.cs" />
     <Compile Include="Problems\EvenFibonacciNumbers.cs" />
