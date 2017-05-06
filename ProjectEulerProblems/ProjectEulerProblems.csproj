@@ -72,6 +72,7 @@
     <Compile Include="Problems\SumSquareDifference.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolutionsCache.cs" />
     <Compile Include="WebsiteManager.cs" />
     <EmbeddedResource Include="ProblemsView.resx">
       <DependentUpon>ProblemsView.cs</DependentUpon>

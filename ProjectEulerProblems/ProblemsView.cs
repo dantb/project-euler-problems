@@ -10,6 +10,7 @@ namespace ProjectEulerProblems
         private const string ProjectEulerBaseUrl = "https://projecteuler.net";
 
         private WebsiteManager _websiteManager = new WebsiteManager();
+        private SolutionsCache _solutionsCache = new SolutionsCache();
         private HashSet<int> _problemIdsFromWebsite = new HashSet<int>();
         private Dictionary<int, string> _problemUrlsKeyedByListViewRow = new Dictionary<int, string>();
 
@@ -34,8 +35,13 @@ namespace ProjectEulerProblems
             {
                 if (_problemIdsFromWebsite.Contains(problem.ProblemId))
                 {
-                    double solution = problem.GetSolution();
+                    double solution;
+                    if (!_solutionsCache.TryGetSolutionFromCache(problem.ProblemId, out solution))
+                    {
+                        solution = problem.GetSolution();
+                    }
                     ProblemsListView.Items[problem.ProblemId - 1].SubItems.Add(solution.ToString());
+                    _solutionsCache.SaveSolutionToCache(problem.ProblemId, solution);
                 }
             }
         }
