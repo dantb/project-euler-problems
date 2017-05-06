@@ -5,7 +5,7 @@ namespace ProjectEulerProblems
 {
     public class SolutionsCache
     {
-        private const string SolutionsCacheFolder = "./Cache";
+        private const string CacheFolder = "./Cache";
         private const string SolutionsCacheFile = "./Cache/SolutionsCache.txt";
 
         private Dictionary<int, double> _problemsWithSolutions = new Dictionary<int, double>();
@@ -25,9 +25,9 @@ namespace ProjectEulerProblems
 
         internal void SaveSolutionToCache(int problemId, double solution)
         {
-            if (!Directory.Exists(SolutionsCacheFolder))
+            if (!Directory.Exists(CacheFolder))
             {
-                Directory.CreateDirectory(SolutionsCacheFolder);
+                Directory.CreateDirectory(CacheFolder);
             }
 
             if (!File.Exists(SolutionsCacheFile))

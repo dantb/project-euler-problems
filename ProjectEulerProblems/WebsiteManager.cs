@@ -12,18 +12,28 @@ namespace ProjectEulerProblems
     public class WebsiteManager
     {
         private const string ProjectEulerBaseUrl = "https://projecteuler.net";
+        private const string ProjectEulerArchives = ProjectEulerBaseUrl + "/archives";
+        private WebsiteCache _websiteCache;
+
+        public WebsiteManager()
+        {
+            _websiteCache = new WebsiteCache();
+        }
 
         public HtmlNode GetHtmlTableFromWebsite()
         {
             try
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-                //extract website contents
-                string websiteContents = "";
-                using (WebClient client = new WebClient())
+                string websiteContents = string.Empty;
+                if (!_websiteCache.TryGetWebsite(ProjectEulerArchives, out websiteContents))
                 {
-                    websiteContents = client.DownloadString(ProjectEulerBaseUrl + "/archives");
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    //extract website contents
+                    using (WebClient client = new WebClient())
+                    {
+                        websiteContents = client.DownloadString(ProjectEulerArchives);
+                    }
+                    _websiteCache.SaveWebsiteToCache(ProjectEulerArchives, websiteContents);
                 }
 
                 return ExtractTableNodeFromHtml(websiteContents);
@@ -38,11 +48,15 @@ namespace ProjectEulerProblems
         {
             try
             {
-                string websiteContents = "";
-                using (WebClient client = new WebClient())
+                string websiteContents = string.Empty;
+                if (!_websiteCache.TryGetWebsite(url, out websiteContents))
                 {
-                    client.Encoding = System.Text.Encoding.ASCII;
-                    websiteContents = client.DownloadString(url);
+                    using (WebClient client = new WebClient())
+                    {
+                        client.Encoding = System.Text.Encoding.ASCII;
+                        websiteContents = client.DownloadString(url);
+                    }
+                    _websiteCache.SaveWebsiteToCache(url, websiteContents);
                 }
 
                 return ExtractProblemDetailsFromHtml(websiteContents);

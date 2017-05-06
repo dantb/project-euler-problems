@@ -9,13 +9,18 @@ namespace ProjectEulerProblems
     {
         private const string ProjectEulerBaseUrl = "https://projecteuler.net";
 
-        private WebsiteManager _websiteManager = new WebsiteManager();
-        private SolutionsCache _solutionsCache = new SolutionsCache();
-        private HashSet<int> _problemIdsFromWebsite = new HashSet<int>();
-        private Dictionary<int, string> _problemUrlsKeyedByListViewRow = new Dictionary<int, string>();
+        private WebsiteManager _websiteManager;
+        private SolutionsCache _solutionsCache;
+        private HashSet<int> _problemIdsFromWebsite;
+        private Dictionary<int, string> _problemUrlsKeyedByListViewRow;
 
         public ProblemsView()
         {
+            _websiteManager = new WebsiteManager();
+            _solutionsCache = new SolutionsCache();
+            _problemIdsFromWebsite = new HashSet<int>();
+            _problemUrlsKeyedByListViewRow = new Dictionary<int, string>();
+
             InitializeComponent();
             for (int i = 0; i < ProblemsListView.Columns.Count; i++)
             {
@@ -27,6 +32,10 @@ namespace ProjectEulerProblems
             LoadProblemsIntoListViewAndAddToProblemsSet(tableNode);
 
             RunSolutionsToSolvedProblemsAndAddToView();
+
+            //Show details for first problem by default
+            ProblemsListView.Select();
+            ShowProblemDetailsRtbFromIndex(0);
         }
 
         private void RunSolutionsToSolvedProblemsAndAddToView()
@@ -39,9 +48,9 @@ namespace ProjectEulerProblems
                     if (!_solutionsCache.TryGetSolutionFromCache(problem.ProblemId, out solution))
                     {
                         solution = problem.GetSolution();
+                        _solutionsCache.SaveSolutionToCache(problem.ProblemId, solution);
                     }
                     ProblemsListView.Items[problem.ProblemId - 1].SubItems.Add(solution.ToString());
-                    _solutionsCache.SaveSolutionToCache(problem.ProblemId, solution);
                 }
             }
         }
@@ -59,7 +68,7 @@ namespace ProjectEulerProblems
                         lvi.SubItems.Add(data.Description);
                         ProblemsListView.Items.Add(lvi);
                         _problemUrlsKeyedByListViewRow.Add(ProblemsListView.Items.Count - 1, data.Details);
-                    }                    
+                    }
                 }
             }
         }
