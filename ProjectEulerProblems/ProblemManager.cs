@@ -13,7 +13,9 @@ namespace ProjectEulerProblems
             new SmallestMultiple(),
             new SumSquareDifference(),
             new NthPrimeCalculator(),
-            new LargestProductInSeries()
+            new LargestProductInSeries(),
+            new SpecialPythagoreanTriplet(),
+            new SummationOfPrimes()
         };
     }
 }

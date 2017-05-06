@@ -67,6 +67,8 @@
     </Compile>
     <Compile Include="Problems\MultiplesOfThreeAndFive.cs" />
     <Compile Include="Problems\SmallestMultiple.cs" />
+    <Compile Include="Problems\SpecialPythagoreanTriplet.cs" />
+    <Compile Include="Problems\SummationOfPrimes.cs" />
     <Compile Include="Problems\SumSquareDifference.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
