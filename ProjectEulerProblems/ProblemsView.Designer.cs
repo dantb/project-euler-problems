@@ -38,17 +38,19 @@
             // 
             // ProblemsListView
             // 
+            this.ProblemsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ProblemsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ProblemIdCol,
             this.ProblemDescriptionCol,
             this.SolutionCol,
             this.SolvingTimeCol});
-            this.ProblemsListView.Dock = System.Windows.Forms.DockStyle.Top;
             this.ProblemsListView.FullRowSelect = true;
             this.ProblemsListView.GridLines = true;
             this.ProblemsListView.Location = new System.Drawing.Point(0, 0);
             this.ProblemsListView.Name = "ProblemsListView";
-            this.ProblemsListView.Size = new System.Drawing.Size(565, 439);
+            this.ProblemsListView.Size = new System.Drawing.Size(568, 439);
             this.ProblemsListView.TabIndex = 0;
             this.ProblemsListView.UseCompatibleStateImageBehavior = false;
             this.ProblemsListView.View = System.Windows.Forms.View.Details;
