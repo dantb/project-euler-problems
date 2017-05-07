@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ProjectEulerProblems
+﻿namespace ProjectEulerProblems
 {
     public class SumSquareDifference : IProblem
     {

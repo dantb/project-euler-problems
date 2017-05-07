@@ -17,7 +17,7 @@ namespace ProjectEulerProblems
             new SpecialPythagoreanTriplet(),
             new SummationOfPrimes(),
             new LargestProductInGrid(),
-            new HighlyDivisibleTriangularNumber()
+            //new HighlyDivisibleTriangularNumber()
         };
     }
 }

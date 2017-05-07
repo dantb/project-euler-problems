@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using HtmlAgilityPack;
+using System.Diagnostics;
 
 namespace ProjectEulerProblems
 {
@@ -45,12 +46,18 @@ namespace ProjectEulerProblems
                 if (_problemIdsFromWebsite.Contains(problem.ProblemId))
                 {
                     double solution;
-                    if (!_solutionsCache.TryGetSolutionFromCache(problem.ProblemId, out solution))
+                    double solvingTime;
+                    if (!_solutionsCache.TryGetSolutionFromCache(problem.ProblemId, out solution, out solvingTime))
                     {
+                        Stopwatch sw = new Stopwatch();
+                        sw.Start();
                         solution = problem.GetSolution();
-                        _solutionsCache.SaveSolutionToCache(problem.ProblemId, solution);
+                        sw.Stop();
+                        solvingTime = sw.ElapsedMilliseconds;
+                        _solutionsCache.SaveSolutionToCache(problem.ProblemId, solution, solvingTime);
                     }
                     ProblemsListView.Items[problem.ProblemId - 1].SubItems.Add(solution.ToString());
+                    ProblemsListView.Items[problem.ProblemId - 1].SubItems.Add(solvingTime.ToString());
                 }
             }
         }
