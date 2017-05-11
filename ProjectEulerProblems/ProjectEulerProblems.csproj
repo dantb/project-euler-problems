@@ -55,6 +55,7 @@
     <Compile Include="Problems\HighlyDivisibleTriangularNumber.cs" />
     <Compile Include="Problems\LargestProductInGrid.cs" />
     <Compile Include="Problems\LargestProductInSeries.cs" />
+    <Compile Include="Problems\LongestCollatzSequence.cs" />
     <Compile Include="Problems\NthPrimeCalculator.cs" />
     <Compile Include="Problems\EvenFibonacciNumbers.cs" />
     <Compile Include="Problems\LargestPalindromeProduct.cs" />
