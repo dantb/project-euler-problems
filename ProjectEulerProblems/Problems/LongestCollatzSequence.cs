@@ -9,28 +9,19 @@ namespace ProjectEulerProblems
 
         public double GetSolution()
         {
+            int maxStart = 0;
+            int maxCount = 0;
             int startingNumber = 1;
             Dictionary<int, int> startingNumbersWithSequenceLengths = new Dictionary<int, int>();
             for (int i = startingNumber; i < 1000000; i++)
             {
-                GetSequenceLengthForStartingNumber(i, startingNumbersWithSequenceLengths);
-            }
-
-            int maxStart = 0;
-            int maxLength = 0;
-            foreach (var item in startingNumbersWithSequenceLengths)
-            {
-                if (item.Value > maxLength)
-                {
-                    maxLength = item.Value;
-                    maxStart = item.Key;
-                }
+                GetSequenceLengthForStartingNumber(i, startingNumbersWithSequenceLengths, ref maxStart, ref maxCount);
             }
 
             return maxStart;
         }
 
-        private void GetSequenceLengthForStartingNumber(int startingNumber, Dictionary<int, int> startingNumbersWithSequenceLengths)
+        private void GetSequenceLengthForStartingNumber(int startingNumber, Dictionary<int, int> startingNumbersWithSequenceLengths, ref int maxStart, ref int maxCount)
         {
             int counter = 1;
             long nextNumber = startingNumber;
@@ -49,6 +40,11 @@ namespace ProjectEulerProblems
                 counter++;
             }
 
+            if (counter > maxCount)
+            {
+                maxStart = startingNumber;
+                maxCount = counter;
+            }
             startingNumbersWithSequenceLengths.Add(startingNumber, counter);
         }
 
