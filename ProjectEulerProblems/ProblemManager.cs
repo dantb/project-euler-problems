@@ -18,7 +18,8 @@ namespace ProjectEulerProblems
             new SummationOfPrimes(),
             new LargestProductInGrid(),
             //new HighlyDivisibleTriangularNumber()
-            new LongestCollatzSequence()
+            new LongestCollatzSequence(),
+            new PowerDigitSum()
         };
     }
 }
