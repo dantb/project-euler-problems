@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProblemData.cs" />
+    <Compile Include="Problems\CountingSundays.cs" />
     <Compile Include="Problems\HighlyDivisibleTriangularNumber.cs" />
     <Compile Include="Problems\LargestProductInGrid.cs" />
     <Compile Include="Problems\LargestProductInSeries.cs" />

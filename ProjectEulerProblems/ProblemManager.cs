@@ -20,7 +20,8 @@ namespace ProjectEulerProblems
             //new HighlyDivisibleTriangularNumber()
             new LongestCollatzSequence(),
             new PowerDigitSum(),
-            new NumberLetterCounts()
+            new NumberLetterCounts(),
+            new CountingSundays()
         };
     }
 }
