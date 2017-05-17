@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace ProjectEulerProblems
 {
@@ -11,28 +12,26 @@ namespace ProjectEulerProblems
             int n = 2000000;
             long sum = 0;
 
-            //sum of primes below n
-            for (int i = 2; i < n; i++)
+            BitArray bits = new BitArray(n);
+
+            //switch bit for non-primes
+            for (int i = 2; i < Math.Sqrt(n); i++)
             {
-                if (IsPrime(i))
+                for (int j = 2; j * i < 2000000; j++)
                 {
-                    sum += i;
+                    bits[(j * i) - 1] = true;
+                }
+            }
+
+            for (int i  = 0; i < bits.Length; i++)
+            {
+                if (!bits[i])
+                {
+                    sum += i;;
                 }
             }
 
             return sum;
-        }
-
-        private bool IsPrime(int i)
-        {
-            for (int j = 2; j <= Math.Sqrt(i); j++)
-            {
-                if (i % j == 0)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }
