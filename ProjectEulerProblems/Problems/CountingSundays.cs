@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ProjectEulerProblems
 {
@@ -13,11 +12,14 @@ namespace ProjectEulerProblems
 
             Year year1900 = new Year(Day.Monday, 1900);
             year1900.NumberOfSundaysOnFirstOfMonth();
+
+            //Get first day of 1901
             Day firstDay = year1900.FirstDayOfNextYear;
             for (int year = 1901; year < 2001; year++)
             {
                 Year theYear = new Year(firstDay, year);
                 days += theYear.NumberOfSundaysOnFirstOfMonth();
+                //update first day to be the first day of the next year
                 firstDay = theYear.FirstDayOfNextYear;
             }
 
@@ -26,48 +28,49 @@ namespace ProjectEulerProblems
 
         public class Year
         {
-            public Day FirstDay;
-            public Day FirstDayOfNextYear;
-            public bool LeapYear;
-            public int DaysInYear;
-            public List<int> DaysInMonths = new List<int>()
+            private Day _firstDay;
+            private bool _leapYear;
+            private int _daysInYear;
+            private readonly List<int> DaysInMonths = new List<int>()
             {
                 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
             };
 
             public Year(Day firstDay, int theYear)
             {
-                FirstDay = firstDay;
+                _firstDay = firstDay;
                 if (theYear % 4 == 0)
                 {
                     if (theYear % 100 == 0)
                     {
-                        LeapYear = theYear % 400 == 0 ? true : false;
+                        _leapYear = theYear % 400 == 0 ? true : false;
                     }
                     else
                     {
-                        LeapYear = true;
+                        _leapYear = true;
                     }
                 }
-                if (LeapYear)
+                if (_leapYear)
                 {
                     DaysInMonths[1] = 29;
-                    DaysInYear = 366;
+                    _daysInYear = 366;
                 }
                 else
                 {
-                    DaysInYear = 365;
+                    _daysInYear = 365;
                 }
             }
+
+            public Day FirstDayOfNextYear;
 
             public int NumberOfSundaysOnFirstOfMonth()
             {
                 int count = 0;
                 int dayCount = 1;
-                Day firstSunday = FirstDay;
-                if (FirstDay != Day.Sunday)
+                Day firstSunday = _firstDay;
+                if (_firstDay != Day.Sunday)
                 {
-                    int daysTilSunday = 7 - ((int) FirstDay);
+                    int daysTilSunday = 7 - ((int) _firstDay);
                     dayCount += daysTilSunday;
                 }
                 else
@@ -78,7 +81,7 @@ namespace ProjectEulerProblems
 
                 int monthCount = DaysInMonths[0];
                 int currentMonth = 0;
-                while (dayCount < DaysInYear - 6)
+                while (dayCount < _daysInYear - 6)
                 {
                     dayCount += 7;
                     if (dayCount > monthCount)
@@ -92,7 +95,7 @@ namespace ProjectEulerProblems
                     }
                 }
 
-                int diffFromEnd = DaysInYear - dayCount;
+                int diffFromEnd = _daysInYear - dayCount;
 
                 FirstDayOfNextYear = (Day)(diffFromEnd + 1);
 

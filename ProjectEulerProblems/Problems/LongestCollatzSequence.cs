@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace ProjectEulerProblems
@@ -12,27 +12,58 @@ namespace ProjectEulerProblems
             int maxStart = 0;
             int maxCount = 0;
             int startingNumber = 1;
-            Dictionary<int, int> startingNumbersWithSequenceLengths = new Dictionary<int, int>();
+            BitArray bits = new BitArray(10000001);
+            Dictionary<long, int> startingNumbersWithSequenceLengths = new Dictionary<long, int>();
             for (int i = startingNumber; i < 1000000; i++)
             {
-                GetSequenceLengthForStartingNumber(i, startingNumbersWithSequenceLengths, ref maxStart, ref maxCount);
+                if (!bits[i])
+                {
+                    int length = GetSequenceLengthForStartingNumber(i, startingNumbersWithSequenceLengths, maxCount, bits);
+                    if (length > maxCount)
+                    {
+                        maxStart = i;
+                        maxCount = length;
+                    }
+                }
+            }
+
+            int count = 0;
+            for (int i = 0; i < bits.Length; i++)
+            {
+                if (!bits[i])
+                {
+                    count++;
+                }
             }
 
             return maxStart;
         }
 
-        private void GetSequenceLengthForStartingNumber(int startingNumber, Dictionary<int, int> startingNumbersWithSequenceLengths, ref int maxStart, ref int maxCount)
+        private int GetSequenceLengthForStartingNumber(int startingNumber, Dictionary<long, int> startingNumbersWithSequenceLengths, int maxCount, BitArray bits)
         {
             int counter = 1;
             long nextNumber = startingNumber;
             while (nextNumber != 1)
             {
-                nextNumber = GetNextNumber(nextNumber);
-                if (nextNumber < Int32.MaxValue && startingNumbersWithSequenceLengths.ContainsKey((int)nextNumber))
+                bool evenNumber;
+                nextNumber = GetNextNumber(nextNumber, out evenNumber);
+                if (nextNumber < 1000000)
                 {
-                    counter += startingNumbersWithSequenceLengths[(int)nextNumber];
+                    if (evenNumber)
+                    {
+                        //we got to next number by dividing by 2, try to look through the other route
+                        int tempCount = 0;
+
+                    }
+                    bits[(int) nextNumber] = true;
+                }
+
+                if (startingNumbersWithSequenceLengths.ContainsKey(nextNumber))
+                {
+                    counter += startingNumbersWithSequenceLengths[(int) nextNumber];
                     break;
                 }
+                
                 if (nextNumber == 1)
                 {
                     break;
@@ -40,22 +71,20 @@ namespace ProjectEulerProblems
                 counter++;
             }
 
-            if (counter > maxCount)
-            {
-                maxStart = startingNumber;
-                maxCount = counter;
-            }
             startingNumbersWithSequenceLengths.Add(startingNumber, counter);
+            return counter;
         }
 
-        private long GetNextNumber(long number)
+        private long GetNextNumber(long number, out bool evenNumber)
         {
             if ((number & 1) == 0)
             {
+                evenNumber = true;
                 return number / 2;
             }
             else
             {
+                evenNumber = false;
                 return (3 * number) + 1;
             }
         }

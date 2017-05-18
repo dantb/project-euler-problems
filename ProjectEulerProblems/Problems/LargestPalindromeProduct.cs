@@ -29,7 +29,7 @@ namespace ProjectEulerProblems
                 }
             }
 
-            List<int> palindromes = new List<int>();
+            HashSet<int> palindromes = new HashSet<int>();
             foreach (int prod in products)
             {
                 Stack<char> stack = new Stack<char>();
