@@ -9,19 +9,10 @@
             Details = details;
         }
 
-        public string Id 
-        {
-            get;
-        }
+        public string Id  { get; }
 
-        public string Description 
-        {
-            get;
-        }
+        public string Description { get; }
 
-        public string Details 
-        {
-            get;
-        }
+        public string Details { get; }
     }
 }

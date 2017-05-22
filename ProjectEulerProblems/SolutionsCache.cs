@@ -13,32 +13,12 @@ namespace ProjectEulerProblems
         public SolutionsCache()
         {
             _problemsWithSolutions = new Dictionary<int, SolutionsCacheData>();
-            if (File.Exists(SolutionsCacheFile))
-            {
-                string[] lines = File.ReadAllLines(SolutionsCacheFile);
-                foreach (string line in lines)
-                {
-                    string[] splitter = line.Split(';');
-                    string[] secondSplitter = splitter[1].Split('-');
-                    double solution = double.Parse(secondSplitter[0]);
-                    double time = double.Parse(secondSplitter[1]);
-                    _problemsWithSolutions.Add(int.Parse(splitter[0]), new SolutionsCacheData(solution, time));
-                }
-            }
+            EnsureCacheFileCreated();
+            ReadCacheIntoMemory();
         }
 
         internal void SaveSolutionToCache(int problemId, double solution, double time)
         {
-            if (!Directory.Exists(CacheFolder))
-            {
-                Directory.CreateDirectory(CacheFolder);
-            }
-
-            if (!File.Exists(SolutionsCacheFile))
-            {
-                File.Create(SolutionsCacheFile).Close();
-            }
-
             if (!_problemsWithSolutions.ContainsKey(problemId))
             {
                 _problemsWithSolutions.Add(problemId, new SolutionsCacheData(solution, time));
@@ -58,17 +38,43 @@ namespace ProjectEulerProblems
             }
             return false;
         }
+
+        private void ReadCacheIntoMemory()
+        {
+            string[] lines = File.ReadAllLines(SolutionsCacheFile);
+            foreach (string line in lines)
+            {
+                string[] splitter = line.Split(';');
+                string[] secondSplitter = splitter[1].Split('-');
+                double solution = double.Parse(secondSplitter[0]);
+                double time = double.Parse(secondSplitter[1]);
+                _problemsWithSolutions.Add(int.Parse(splitter[0]), new SolutionsCacheData(solution, time));
+            }
+        }
+
+        private void EnsureCacheFileCreated()
+        {
+            if (!Directory.Exists(CacheFolder))
+            {
+                Directory.CreateDirectory(CacheFolder);
+            }
+
+            if (!File.Exists(SolutionsCacheFile))
+            {
+                File.Create(SolutionsCacheFile).Close();
+            }
+        }
     }
 
     class SolutionsCacheData
     {
-        public double Solution;
-        public double SolvingTime;
-
         public SolutionsCacheData(double solution, double time)
         {
             Solution = solution;
             SolvingTime = time;
         }
+
+        public double Solution { get; }
+        public double SolvingTime { get; }
     }
 }
