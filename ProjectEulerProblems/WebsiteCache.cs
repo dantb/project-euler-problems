@@ -14,24 +14,22 @@ namespace ProjectEulerProblems
 
         public WebsiteCache()
         {
+            CreateCacheFileWithGuidIdentifier();
             _urlsWithContents = new Dictionary<string, string>();
-            if (File.Exists(WebsiteCacheFile))
+            using (StreamReader reader = new StreamReader(WebsiteCacheFile))
             {
-                using (StreamReader reader = new StreamReader(WebsiteCacheFile))
+                _guidSplitter = reader.ReadLine() ?? string.Empty;
+                if (_guidSplitter == string.Empty)
                 {
-                    _guidSplitter = reader.ReadLine() ?? string.Empty;
-                    if (_guidSplitter == string.Empty)
-                    {
-                        throw new InvalidDataException("Cache needs a GUID on the first line");
-                    }
+                    throw new InvalidDataException("Cache needs a GUID on the first line");
                 }
-                string text = File.ReadAllText(WebsiteCacheFile);
-                string[] splitByGuid = text.Split(new string[] { _guidSplitter }, StringSplitOptions.None);
-                for (int i = 1; i < splitByGuid.Length - 2; i += 2)
-                {
-                    //consecutive pairs are urls with contents
-                    _urlsWithContents.Add(splitByGuid[i].TrimStart('\r', '\n'), splitByGuid[i + 1]);
-                }
+            }
+            string text = File.ReadAllText(WebsiteCacheFile);
+            string[] splitByGuid = text.Split(new string[] { _guidSplitter }, StringSplitOptions.None);
+            for (int i = 1; i < splitByGuid.Length - 2; i += 2)
+            {
+                //consecutive pairs are urls with contents
+                _urlsWithContents.Add(splitByGuid[i].TrimStart('\r', '\n'), splitByGuid[i + 1]);
             }
         }
 
@@ -48,6 +46,18 @@ namespace ProjectEulerProblems
 
         internal void SaveWebsiteToCache(string url, string websiteContents)
         {
+            if (!_urlsWithContents.ContainsKey(url))
+            {
+                _urlsWithContents.Add(url, websiteContents);
+                File.AppendAllLines(WebsiteCacheFile, new string[]
+                {
+                    $"{url}{_guidSplitter}{websiteContents}{_guidSplitter}"
+                });
+            }
+        }
+
+        private void CreateCacheFileWithGuidIdentifier()
+        {
             if (!Directory.Exists(CacheFolder))
             {
                 Directory.CreateDirectory(CacheFolder);
@@ -59,15 +69,6 @@ namespace ProjectEulerProblems
                 //stick a GUID on the top, can be used as splitter for websites
                 _guidSplitter = Guid.NewGuid().ToString();
                 File.WriteAllLines(WebsiteCacheFile, new string[] { _guidSplitter });
-            }
-
-            if (!_urlsWithContents.ContainsKey(url))
-            {
-                _urlsWithContents.Add(url, websiteContents);
-                File.AppendAllLines(WebsiteCacheFile, new string[]
-                {
-                    $"{url}{_guidSplitter}{websiteContents}{_guidSplitter}"
-                });
             }
         }
     }
