@@ -8,7 +8,7 @@ namespace ProjectEulerProblems
     {
         private const string CacheFolder = "./Cache";
         private const string WebsiteCacheFile = "./Cache/WebsiteCache.txt";
-        private string _guidSplitter;
+        private string _guidIdentifier;
 
         private Dictionary<string, string> _urlsWithContents;
 
@@ -16,21 +16,10 @@ namespace ProjectEulerProblems
         {
             CreateCacheFileWithGuidIdentifier();
             _urlsWithContents = new Dictionary<string, string>();
-            using (StreamReader reader = new StreamReader(WebsiteCacheFile))
-            {
-                _guidSplitter = reader.ReadLine() ?? string.Empty;
-                if (_guidSplitter == string.Empty)
-                {
-                    throw new InvalidDataException("Cache needs a GUID on the first line");
-                }
-            }
+            //if guid is initialised, we just created the cache - use it. Otherwise read from cache
+            _guidIdentifier = string.IsNullOrEmpty(_guidIdentifier) ? ExtractGuidIdentifierFromCache() : _guidIdentifier;
             string text = File.ReadAllText(WebsiteCacheFile);
-            string[] splitByGuid = text.Split(new string[] { _guidSplitter }, StringSplitOptions.None);
-            for (int i = 1; i < splitByGuid.Length - 2; i += 2)
-            {
-                //consecutive pairs are urls with contents
-                _urlsWithContents.Add(splitByGuid[i].TrimStart('\r', '\n'), splitByGuid[i + 1]);
-            }
+            ReadCacheIntoMemory(text);
         }
 
         internal bool TryGetWebsite(string url, out string websiteContents)
@@ -51,7 +40,7 @@ namespace ProjectEulerProblems
                 _urlsWithContents.Add(url, websiteContents);
                 File.AppendAllLines(WebsiteCacheFile, new string[]
                 {
-                    $"{url}{_guidSplitter}{websiteContents}{_guidSplitter}"
+                    $"{url}{_guidIdentifier}{websiteContents}{_guidIdentifier}"
                 });
             }
         }
@@ -67,9 +56,33 @@ namespace ProjectEulerProblems
             {
                 File.Create(WebsiteCacheFile).Close();
                 //stick a GUID on the top, can be used as splitter for websites
-                _guidSplitter = Guid.NewGuid().ToString();
-                File.WriteAllLines(WebsiteCacheFile, new string[] { _guidSplitter });
+                _guidIdentifier = Guid.NewGuid().ToString();
+                File.WriteAllLines(WebsiteCacheFile, new string[] { _guidIdentifier });
             }
+        }
+
+        private void ReadCacheIntoMemory(string text)
+        {
+            string[] splitByGuid = text.Split(new string[] { _guidIdentifier }, StringSplitOptions.None);
+            for (int i = 1; i < splitByGuid.Length - 2; i += 2)
+            {
+                //consecutive pairs are urls with contents
+                _urlsWithContents.Add(splitByGuid[i].TrimStart('\r', '\n'), splitByGuid[i + 1]);
+            }
+        }
+
+        private string ExtractGuidIdentifierFromCache()
+        {
+            string guidIdentifier;
+            using (StreamReader reader = new StreamReader(WebsiteCacheFile))
+            {
+                guidIdentifier = reader.ReadLine() ?? string.Empty;
+                if (guidIdentifier == string.Empty)
+                {
+                    throw new InvalidDataException("Cache needs a GUID on the first line");
+                }
+            }
+            return guidIdentifier;
         }
     }
 }
