@@ -21,7 +21,8 @@ namespace ProjectEulerProblems
             new LongestCollatzSequence(),
             new PowerDigitSum(),
             new NumberLetterCounts(),
-            new CountingSundays()
+            new CountingSundays(),
+            new FactorialDigitSum()
         };
     }
 }
