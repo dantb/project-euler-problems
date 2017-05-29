@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace ProjectEulerProblems
 {
@@ -8,7 +9,20 @@ namespace ProjectEulerProblems
 
         public double GetSolution()
         {
-            throw new NotImplementedException();
+            double sum = 0;
+            BigInteger factorial = 1;
+
+            for (int i = 2; i <= 100; i++)
+            {
+                factorial *= i;
+            }
+
+            foreach (char num in factorial.ToString())
+            {
+                sum += int.Parse(num.ToString());
+            }
+
+            return sum;
         }
     }
 }
