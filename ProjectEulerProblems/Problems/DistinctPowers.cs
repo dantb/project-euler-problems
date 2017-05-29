@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
 
 namespace ProjectEulerProblems
 {
@@ -8,7 +10,18 @@ namespace ProjectEulerProblems
 
         public double GetSolution()
         {
-            throw new NotImplementedException();
+            HashSet<BigInteger> powers = new HashSet<BigInteger>();
+
+            for (int i = 2; i <= 100; i++)
+            {
+                for (int j = 2; j <= 100; j++)
+                {
+                    BigInteger power = BigInteger.Pow(i, j);
+                    powers.Add(power);
+                }
+            }
+
+            return powers.Count;
         }
     }
 }
