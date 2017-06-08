@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Problems\MultiplesOfThreeAndFive.cs" />
     <Compile Include="Problems\NumberLetterCounts.cs" />
+    <Compile Include="Problems\NumberSpiralDiagonals.cs" />
     <Compile Include="Problems\PowerDigitSum.cs" />
     <Compile Include="Problems\SmallestMultiple.cs" />
     <Compile Include="Problems\SpecialPythagoreanTriplet.cs" />

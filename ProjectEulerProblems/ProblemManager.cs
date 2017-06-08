@@ -23,7 +23,8 @@ namespace ProjectEulerProblems
             new NumberLetterCounts(),
             new CountingSundays(),
             new FactorialDigitSum(),
-            new DistinctPowers()
+            new DistinctPowers(),
+            new NumberSpiralDiagonals()
         };
     }
 }
