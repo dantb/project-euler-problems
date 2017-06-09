@@ -17,7 +17,7 @@ namespace ProjectEulerProblems
             }
 
             HashSet<long> fifthDigitNumbers = new HashSet<long>();
-            for (int i = 2; i < 1000000; i++)
+            for (int i = 2; i < 6 * fifthPowers['9']; i++)
             {
                 string asString = i.ToString();
                 long sum = 0;
