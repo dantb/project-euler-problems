@@ -24,7 +24,8 @@ namespace ProjectEulerProblems
             new CountingSundays(),
             new FactorialDigitSum(),
             new DistinctPowers(),
-            new NumberSpiralDiagonals()
+            new NumberSpiralDiagonals(),
+            new DigitFifthPowers()
         };
     }
 }
