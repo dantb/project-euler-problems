@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ProblemData.cs" />
     <Compile Include="Problems\CountingSundays.cs" />
+    <Compile Include="Problems\DigitFifthPowers.cs" />
     <Compile Include="Problems\DistinctPowers.cs" />
     <Compile Include="Problems\FactorialDigitSum.cs" />
     <Compile Include="Problems\HighlyDivisibleTriangularNumber.cs" />
