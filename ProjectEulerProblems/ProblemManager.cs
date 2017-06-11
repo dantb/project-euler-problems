@@ -26,7 +26,8 @@ namespace ProjectEulerProblems
             new DistinctPowers(),
             new NumberSpiralDiagonals(),
             new DigitFifthPowers(),
-            new PandigitalProducts()
+            new PandigitalProducts(),
+            new DigitFactorials()
         };
     }
 }
