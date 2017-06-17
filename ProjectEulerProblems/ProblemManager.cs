@@ -27,7 +27,8 @@ namespace ProjectEulerProblems
             new NumberSpiralDiagonals(),
             new DigitFifthPowers(),
             new PandigitalProducts(),
-            new DigitFactorials()
+            new DigitFactorials(),
+            new CircularPrimes()
         };
     }
 }
