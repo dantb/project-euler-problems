@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProblemData.cs" />
+    <Compile Include="Problems\CircularPrimes.cs" />
     <Compile Include="Problems\CountingSundays.cs" />
     <Compile Include="Problems\DigitFactorials.cs" />
     <Compile Include="Problems\DigitFifthPowers.cs" />
