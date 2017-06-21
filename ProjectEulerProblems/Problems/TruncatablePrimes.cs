@@ -20,33 +20,63 @@ namespace ProjectEulerProblems
                 {
                     truncatablePrimes.Add(counter);
                 }
+                counter++;
             }
 
             return truncatablePrimes.Sum();
         }
 
-        private bool IsPrime(int n)
+        class TruncatablePrimeCalculator
         {
-            //If there's a prime > root(n) then there's certainly one < root(n)
-            for (int i = 2; i <= Math.Sqrt(n); i++)
+            private Dictionary<string, bool> numberPrimeCache = new Dictionary<string, bool>();
+
+            public bool IsTruncatablePrime(int candidate)
             {
-                if (n % i == 0)
+                if (!IsPrime(candidate))
                 {
                     return false;
                 }
-            }
-            if (n == 1)
-            {
-                return false;
-            }
-            return true;
-        }
 
-        class TruncatablePrimeCalculator
-        {
-            public bool IsTruncatablePrime(int counter)
+                string asString = candidate.ToString();
+
+                //left to right
+                for (int i = 1; i < asString.Length; i++)
+                {
+                    string truncated = asString.Substring(i);
+                    if (!IsPrime(int.Parse(truncated)))
+                    {
+                        return false;
+                    }
+                }
+
+                //right to left
+                for (int i = asString.Length - 1; i > 0; i--)
+                {
+                    string truncated = asString.Substring(0, i);
+                    if (!IsPrime(int.Parse(truncated)))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            private bool IsPrime(int n)
             {
-                throw new NotImplementedException();
+                //If there's a prime > root(n) then there's certainly one < root(n)
+                for (int i = 2; i <= Math.Sqrt(n); i++)
+                {
+                    if (n % i == 0)
+                    {
+                        return false;
+                    }
+                }
+                if (n == 1)
+                {
+                    return false;
+                }
+                return true;
             }
         }
     }

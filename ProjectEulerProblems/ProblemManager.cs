@@ -28,7 +28,8 @@ namespace ProjectEulerProblems
             new DigitFifthPowers(),
             new PandigitalProducts(),
             new DigitFactorials(),
-            new CircularPrimes()
+            new CircularPrimes(),
+            new TruncatablePrimes()
         };
     }
 }
