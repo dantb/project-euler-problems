@@ -12,15 +12,22 @@ namespace ProjectEulerProblems
         {
             TruncatablePrimeCalculator truncPrimeCalc = new TruncatablePrimeCalculator();
             HashSet<int> truncatablePrimes = new HashSet<int>();
+            HashSet<char> evenDigits = new HashSet<char>() { '0', '4', '6', '8' };
             int counter = 23; //first is 23 by observation
 
             while (truncatablePrimes.Count < 11)
             {
-                if (truncPrimeCalc.IsTruncatablePrime(counter))
+                string asString = counter.ToString();
+                HashSet<char> digits = new HashSet<char>(asString);
+                //can't contain even digits and can't have a 2 anywhere except the front
+                if (!digits.Overlaps(evenDigits) && !asString.Substring(1).Contains('2'))
                 {
-                    truncatablePrimes.Add(counter);
+                    if (truncPrimeCalc.IsTruncatablePrime(counter))
+                    {
+                        truncatablePrimes.Add(counter);
+                    }
                 }
-                counter++;
+                counter += 2;
             }
 
             return truncatablePrimes.Sum();
