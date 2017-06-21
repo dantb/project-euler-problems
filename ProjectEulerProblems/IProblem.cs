@@ -2,10 +2,8 @@
 {
     public interface IProblem
     {
-        int ProblemId
-        {
-            get;
-        }
+        int ProblemId { get; }
+
         double GetSolution();
     }
 }
